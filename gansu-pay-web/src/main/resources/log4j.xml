@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+    <!--日志输出到控制台-->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d-4relative [%X{TRADE_ID}] %-5p %c{2}:%L -%m%n"/>
+        </layout>
+    </appender>
+    <!--输出到root文件中-->
+    <appender name="root" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/data/logs/root.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <param name="Append" value="true"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d-4relative [%X{TRADE_ID}] %-5p %c{2}:%L -%m%n"/>
+        </layout>
+    </appender>
+    <!--错误汇总-->
+    <appender name="error" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/data/logs/error.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <param name="Append" value="true"/>
+        <param name="Encoding" value="UTF-8"/>
+        <param name="threshold" value="error"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d-4relative [%X{TRADE_ID}] %-5p %c{2}:%L -%m%n"/>
+        </layout>
+    </appender>
+
+    <!--dubbo-monitor监控日志-->
+    <appender name="dubbo-monitor" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/data/logs/dubbo-monitor.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <param name="Append" value="true"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d-4relative [%X{TRADE_ID}] %-5p %c{2}:%L -%m%n"/>
+        </layout>
+    </appender>
+
+    <!--dubbo日志输出地址-->
+    <logger name="com.alibaba.dubbo" additivity="false">
+        <level value="${log4j.level}" />
+        <appender-ref ref="dubbo-monitor" />
+        <appender-ref ref="root" />
+        <appender-ref ref="console" />
+        <appender-ref ref="error" />
+    </logger>
+    <!--系统日志输出地址-->
+    <logger name="com.gs.pay" additivity="false">
+        <level value="${log4j.level}" />
+        <appender-ref ref="root" />
+        <appender-ref ref="console" />
+        <appender-ref ref="error" />
+    </logger>
+
+    <root>
+        <level value="${log4j.level}" />
+        <appender-ref ref="root" />
+        <appender-ref ref="console" />
+        <appender-ref ref="error" />
+    </root>
+
+
+</log4j:configuration>
