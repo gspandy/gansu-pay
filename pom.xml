@@ -28,6 +28,8 @@
         <jackson.version>2.8.8</jackson.version>
         <zookeeper.version>3.3.4</zookeeper.version>
         <zkclient.version>0.8</zkclient.version>
+        <ibaits.verison>2.3.0</ibaits.verison>
+        <mybatis.3.3.version>3.3.0</mybatis.3.3.version>
     </properties>
     <dependencies>
         <!--Junit-->
@@ -132,6 +134,11 @@
                 <groupId>com.101tec</groupId>
                 <artifactId>zkclient</artifactId>
                 <version>${zkclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.3.3.version}</version>
             </dependency>
 
 

@@ -18,5 +18,6 @@
     <mvc:annotation-driven />
 
     <import resource="classpath*:dubbo.xml" />
+    <import resource="classpath*:spring-mybatis.xml" />
 
 </beans>
