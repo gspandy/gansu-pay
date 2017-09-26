@@ -28,7 +28,7 @@ public class WeChatPayImpl implements WeChatPayApi {
     @Override
     public String commitPay(String reqJson) {
         log.info("==确认支付请求报文->{}", reqJson);
-        log.error("==支付成功");
+        log.info("==支付成功");
         JSONObject result = new JSONObject(2);
         result.put("code", "2000");
         result.put("msg", "支付成功");
