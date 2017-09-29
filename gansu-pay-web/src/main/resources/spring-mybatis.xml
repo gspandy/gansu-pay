@@ -64,7 +64,27 @@
     <!--解决service方法自调用问题，导致Transactional事务失效，需要添加aspectJ-->
     <tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" />
 
-    <!--<bean id="annotationTransactionAspect" class="org.springframework.transaction.aspectj.AnnotationTransactionAspect" factory-method="aspectOf" />
-    &lt;!&ndash;开启事务管理&ndash;&gt;
-    <tx:annotation-driven transaction-manager="transactionManager" />-->
+    <!--未考虑到性能，还是使用注解事务，事务单元小，性能高-->
+
+    <!--配置通知拦截-->
+    <!--<tx:advice id="transactionInterceptor" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="insert*" propagation="REQUIRED" isolation="DEFAULT"/>
+            <tx:method name="save*" propagation="REQUIRED" isolation="DEFAULT"/>
+            <tx:method name="add*" propagation="REQUIRED" isolation="DEFAULT"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config >
+        <aop:pointcut id="pointCut" expression="execution(* com.gs.pay.service.impl..*.*(..))" />
+        <aop:advisor advice-ref="transactionInterceptor" pointcut-ref="pointCut" />
+    </aop:config>-->
+
+
+<!--
+    <bean id="annotationTransactionAspect" class="org.springframework.transaction.aspectj.AnnotationTransactionAspect" factory-method="aspectOf" />
+-->
+    <!--开启事务管理-->
+<!--
+    <tx:annotation-driven transaction-manager="transactionManager" />
+-->
 </beans>
