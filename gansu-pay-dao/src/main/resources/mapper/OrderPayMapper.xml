@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gs.pay.dao.OrderPayMapper">
+    <resultMap id="resultMap" type="com.gs.pay.model.OrderPay">
+        <result property="id" column="id"/>
+        <result property="tradeId" column="tradeId"/>
+        <result property="customerId" column="customerId"/>
+        <result property="outAccount" column="outAccount"/>
+        <result property="inAccount" column="inAccount"/>
+        <result property="payAmount" column="payAmount"/>
+    </resultMap>
+
+    <sql id="baseSQL">
+        id, tradeId, customerId, outAccount, inAccount, payAmount
+    </sql>
+    <sql id="insertSQL">
+        tradeId, customerId, outAccount, inAccount, payAmount
+    </sql>
+
+    <insert id="insertOrderPay" parameterType="com.gs.pay.model.OrderPay">
+        insert into t_orderpay (<include refid="insertSQL"/>) VALUES
+        (#{tradeId},#{customerId},#{outAccount},#{inAccount},#{payAmount})
+    </insert>
+
+</mapper>

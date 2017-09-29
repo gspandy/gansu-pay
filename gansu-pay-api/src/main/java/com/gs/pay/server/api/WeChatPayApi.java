@@ -1,5 +1,7 @@
 package com.gs.pay.server.api;
 
+import com.gs.pay.model.OrderPay;
+
 /**
  * @author ：xiaopingzhang8@creditease.cn
  * @Description ：微信支付API
@@ -14,4 +16,6 @@ public interface WeChatPayApi {
      * @return
      */
     String commitPay(String reqJson);
+
+
 }
