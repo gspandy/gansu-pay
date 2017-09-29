@@ -1,4 +1,4 @@
-package com.gs.pay.server.api;
+package com.gs.pay.service.api;
 
 import com.gs.pay.model.OrderPay;
 

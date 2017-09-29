@@ -13,7 +13,7 @@
     <dubbo:provider serialization="java" timeout="5000" version="${dubbo.server.version}" />
     <dubbo:protocol name="dubbo" port="${dubbo.port}" />
 
-    <dubbo:service interface="com.gs.pay.server.api.WeChatPayApi" ref="weChatPayApi" />
+    <dubbo:service interface="com.gs.pay.service.api.WeChatPayApi" ref="weChatPayApi" />
 
 
 </beans>
