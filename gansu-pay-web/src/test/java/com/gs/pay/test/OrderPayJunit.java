@@ -51,7 +51,7 @@ public class OrderPayJunit {
             pay.setCustomerId("9527");
             pay.setOutAccount(UUIDSnowFlake.getUUId());
             pay.setInAccount(UUIDSnowFlake.getUUId());
-            pay.setPayAmount(new BigDecimal("25.36").multiply(new BigDecimal(i + "")));
+            pay.setPayAmount(new BigDecimal("25.36").multiply(new BigDecimal(i+"")));
             weChatPayApi.commitPay(JSON.toJSONString(pay));
         }
     }
@@ -135,13 +135,4 @@ public class OrderPayJunit {
         System.out.println(JSON.toJSONString(orderPayList));
     }
 
-    public static void main(String[] args) {
-        OrderPay pay = new OrderPay();
-        pay.setTradeId(UUIDSnowFlake.getUUId());
-        pay.setCustomerId("9527");
-        pay.setOutAccount(UUIDSnowFlake.getUUId());
-        pay.setInAccount(UUIDSnowFlake.getUUId());
-        pay.setPayAmount(new BigDecimal("25.36"));
-        System.out.println(JSON.toJSONString(pay));
-    }
 }

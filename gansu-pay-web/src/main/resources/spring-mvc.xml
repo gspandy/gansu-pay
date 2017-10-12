@@ -15,6 +15,7 @@
     <context:annotation-config />
     <context:component-scan base-package="com.gs.pay" />
     <mvc:default-servlet-handler />
+    <aop:scoped-proxy proxy-target-class="true" />
 
     <!--Json兼容-->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />

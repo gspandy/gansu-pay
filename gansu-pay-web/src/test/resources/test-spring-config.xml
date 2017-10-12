@@ -16,7 +16,7 @@
     <context:component-scan base-package="com.gs.pay" />
     <context:spring-configured/>
     <mvc:annotation-driven />
-    <aop:aspectj-autoproxy />
+    <aop:aspectj-autoproxy proxy-target-class="true" />
 
 
     <import resource="classpath*:spring-bean.xml" />
