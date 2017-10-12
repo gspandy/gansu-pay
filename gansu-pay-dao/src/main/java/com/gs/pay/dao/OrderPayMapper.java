@@ -2,6 +2,8 @@ package com.gs.pay.dao;
 
 import com.gs.pay.model.OrderPay;
 
+import java.util.List;
+
 /**
  * @author ：xiaopingzhang8@creditease.cn
  * @Description ：订单支付DB操作
@@ -17,4 +19,10 @@ public interface OrderPayMapper {
      * @return
      */
     int insertOrderPay(OrderPay orderPay);
+
+    /**
+     * 获取订单信息
+     * @return
+     */
+    List<OrderPay> getOrderPayList();
 }

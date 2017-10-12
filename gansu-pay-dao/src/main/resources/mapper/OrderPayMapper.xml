@@ -23,4 +23,8 @@
         (#{tradeId},#{customerId},#{outAccount},#{inAccount},#{payAmount})
     </insert>
 
+    <select id="getOrderPayList" resultMap="resultMap">
+        select <include refid="baseSQL" /> from t_orderpay
+    </select>
+
 </mapper>

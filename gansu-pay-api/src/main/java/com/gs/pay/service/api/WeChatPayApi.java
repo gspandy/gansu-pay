@@ -2,6 +2,8 @@ package com.gs.pay.service.api;
 
 import com.gs.pay.model.OrderPay;
 
+import java.util.List;
+
 /**
  * @author ：xiaopingzhang8@creditease.cn
  * @Description ：微信支付API
@@ -16,6 +18,12 @@ public interface WeChatPayApi {
      * @return
      */
     String commitPay(String reqJson);
+
+    /**
+     * 查询支付订单
+     * @return
+     */
+    List<OrderPay> getOrderPay();
 
 
 }
