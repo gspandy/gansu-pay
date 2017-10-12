@@ -27,7 +27,7 @@ import java.lang.reflect.Method;
 public class MDCTraceAop {
     private static final Logger log = LoggerFactory.getLogger(MDCTraceAop.class);
 
-    /**
+    /**·
      * MDC切入
      *
      * @param joinPoint

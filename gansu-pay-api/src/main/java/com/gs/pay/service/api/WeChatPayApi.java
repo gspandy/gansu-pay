@@ -25,5 +25,11 @@ public interface WeChatPayApi {
      */
     List<OrderPay> getOrderPay();
 
+    /**
+     * 查询支付订单列表，采用注解式缓存
+     * @return
+     */
+    List<OrderPay> getOrderPayList();
+
 
 }

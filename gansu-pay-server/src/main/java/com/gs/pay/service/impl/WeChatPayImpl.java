@@ -2,6 +2,7 @@ package com.gs.pay.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.gs.pay.annotation.MDCTrace;
+import com.gs.pay.annotation.RedisCacheAspect;
 import com.gs.pay.dao.OrderPayMapper;
 import com.gs.pay.model.OrderPay;
 import com.gs.pay.service.api.WeChatPayApi;
@@ -117,5 +118,13 @@ public class WeChatPayImpl implements WeChatPayApi {
             log.error("==获取支付订单信息数据异常",e);
         }
         return orderPayList;
+    }
+
+    @RedisCacheAspect(key = "paylist")
+    @MDCTrace
+    @Override
+    public List<OrderPay> getOrderPayList() {
+        return orderPayMapper.getOrderPayList();
+
     }
 }

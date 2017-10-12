@@ -128,6 +128,13 @@ public class OrderPayJunit {
         }
     }
 
+
+    @Test
+    public void testAop() {
+        List<OrderPay> orderPayList = weChatPayApi.getOrderPayList();
+        System.out.println(JSON.toJSONString(orderPayList));
+    }
+
     public static void main(String[] args) {
         OrderPay pay = new OrderPay();
         pay.setTradeId(UUIDSnowFlake.getUUId());
