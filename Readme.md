@@ -13,7 +13,13 @@ gansu-pay-server--依赖-->gansu-pay-api    gansu-pay-dao   gansu-pay-util
 gan-pay-api--依赖-->gansu-pay-model
 gan-pay-dao--依赖-->gansu-pay-model 
 ```
-##3.telnet命令调试dubbo
+##3.项目集成功能
+####3.1 mysql数据库
+####3.2 redis缓存分布式锁
+####3.3 dubbo RPC远程服务框架
+####3.4 schedual定时任务
+
+##4.telnet命令调试dubbo
 ```markdown
 //ls
 列出dubbo服务
