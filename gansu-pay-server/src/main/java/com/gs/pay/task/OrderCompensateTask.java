@@ -14,7 +14,7 @@ public class OrderCompensateTask extends AbstractSchedualTask {
     private static final Logger log = LoggerFactory.getLogger(OrderCompensateTask.class);
 
     @Override
-    void excute() {
+    void execute() {
         try {
             log.info("==启动订单补偿任务==");
             Thread.sleep(10000);

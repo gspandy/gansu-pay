@@ -10,8 +10,17 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd ">
 
     <!--spring定时任务-->
+    <!--订单补偿-->
     <bean id="orderCompensateTask" class="com.gs.pay.task.OrderCompensateTask" />
+    <!--文件对账-->
+    <bean id="accountReverseTask" class="com.gs.pay.task.AccountReverseTask" />
 
+    <!--
+        处理定时任务并发问题
+            方式一：采用原子变量来控制
+            方式二：MethodInvokingJobDetailFactoryBean中的concurrent属性来控制
+    -->
+    <!--订单补偿-->
     <bean id="orderCompensateFactoryBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="orderCompensateTask" />
         <property name="targetMethod" value="run" />
@@ -20,13 +29,26 @@
     <bean id="orderCompensateTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="orderCompensateFactoryBean" />
         <property name="cronExpression" value="0/10 * * * * ? *" />
-
     </bean>
+
+    <!--文件对账-->
+    <bean id="accountReverseFactoryBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="accountReverseTask" />
+        <property name="targetMethod" value="execute" />
+        <property name="concurrent" value="false" />
+    </bean>
+
+    <bean id="accountReverseTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="accountReverseFactoryBean" />
+        <property name="cronExpression" value="0/10 * * * * ? *" />
+    </bean>
+
 
     <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="orderCompensateTrigger" />
+                <ref bean="accountReverseTrigger" />
             </list>
         </property>
     </bean>

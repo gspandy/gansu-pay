@@ -25,13 +25,13 @@ public abstract class AbstractSchedualTask {
     /**
      * 需要实现的业务方法
      */
-    abstract void excute();
+    abstract void execute();
 
     @MDCTrace
     public void run() {
         if (flag.compareAndSet(true, false)) {
             log.info("==开始执行任务==");
-            excute();
+            execute();
             log.info("==任务执行完成==");
             flag.compareAndSet(false, true);
         } else {

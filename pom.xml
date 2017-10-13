@@ -33,6 +33,7 @@
         <mysql.connection>5.1.38</mysql.connection>
         <redis.version>2.9.0</redis.version>
         <collections.version>3.2.1</collections.version>
+        <quartz.version>2.3.0</quartz.version>
     </properties>
     <dependencies>
         <!--Junit-->
@@ -172,6 +173,11 @@
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>${collections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
             </dependency>
 
         </dependencies>
