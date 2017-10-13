@@ -19,6 +19,13 @@ gan-pay-dao--依赖-->gansu-pay-model
 ####3.3 dubbo RPC远程服务框架
 ####3.4 schedual定时任务
 
+##4.docker创建mysql、redis容器
+```markdown
+alias redis-gansu='docker run -d --name gansu-redis -p 6379:6379 daocloud.io/library/redis:3.2.10'
+alias mysql-gansu='docker run -d --name=gansu-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=gansu-pay daocloud.io/library/mysql:5.6.17'
+
+```
+
 ##4.telnet命令调试dubbo
 ```markdown
 //ls
