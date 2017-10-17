@@ -9,7 +9,7 @@
 
     <!--dubbo配置-->
     <dubbo:application name="${dubbo.application}" />
-    <dubbo:registry address="${dubbo.zookeeper.address}"  protocol="zookeeper" />
+    <dubbo:registry address="${zookeeper.address}"  protocol="zookeeper" />
     <dubbo:provider serialization="java" timeout="5000" version="${dubbo.server.version}" />
     <dubbo:protocol name="dubbo" port="${dubbo.port}" />
 

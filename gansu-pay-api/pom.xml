@@ -3,12 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>gansu-pay-api</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.0-RELEASE</version>
   <name>gansu-pay-api</name>
   <parent>
     <groupId>com.gs.pay</groupId>
     <artifactId>gansu-pay</artifactId>
-    <version>1.0.0-RELEASE</version>
+    <version>2.0.0-RELEASE</version>
   </parent>
   <dependencies>
     <dependency>
