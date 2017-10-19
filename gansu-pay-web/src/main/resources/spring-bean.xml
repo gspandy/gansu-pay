@@ -3,8 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd ">
 
+    <!--redis 工具类-->
     <bean id="redisUtils" class="com.gs.pay.util.RedisUtils" />
-
+    <!--zk工具类-->
+    <bean id="zookeeperUtils" class="com.gs.pay.util.ZookeeperUtils">
+        <property name="servers" value="${zookeeper.address}" />
+        <property name="rootPath" value="/conf/gansu" />
+    </bean>
 
 
 </beans>

@@ -5,6 +5,8 @@ import com.gs.pay.model.OrderPay;
 import com.gs.pay.service.api.WeChatPayApi;
 import com.gs.pay.util.RedisUtils;
 import com.gs.pay.util.UUIDSnowFlake;
+import com.gs.pay.util.ZookeeperUtils;
+import org.apache.zookeeper.CreateMode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -35,6 +37,8 @@ public class OrderPayJunit {
     private WeChatPayApi weChatPayApi;
     @Resource
     private RedisUtils redisUtils;
+    @Resource
+    private ZookeeperUtils zookeeperUtils;
 
 
     @Test
@@ -51,7 +55,7 @@ public class OrderPayJunit {
             pay.setCustomerId("9527");
             pay.setOutAccount(UUIDSnowFlake.getUUId());
             pay.setInAccount(UUIDSnowFlake.getUUId());
-            pay.setPayAmount(new BigDecimal("25.36").multiply(new BigDecimal(i+"")));
+            pay.setPayAmount(new BigDecimal("25.36").multiply(new BigDecimal(i + "")));
             weChatPayApi.commitPay(JSON.toJSONString(pay));
         }
     }
@@ -133,6 +137,106 @@ public class OrderPayJunit {
     public void testAop() {
         List<OrderPay> orderPayList = weChatPayApi.getOrderPayList();
         System.out.println(JSON.toJSONString(orderPayList));
+    }
+
+    @Test
+    public void testzk1() {
+        System.out.println(zookeeperUtils.createPath("/conf/zk2", "xiaoxin", CreateMode.EPHEMERAL));
+
+    }
+
+    @Test
+    public void testzk2() {
+        System.out.println(zookeeperUtils.getChildren("/conf"));
+
+    }
+
+    @Test
+    public void testzk3() {
+        System.out.println(zookeeperUtils.getData("/conf/zk"));
+    }
+
+
+    @Test
+    public void testzkLock() {
+        final Object object = new Object();
+        final String key = "/conf/syncLock";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (zookeeperUtils.tryLock(key)) {
+                    command2(object, key);
+                } else {
+                    try {
+                        log.info(Thread.currentThread().getName() + "==未获得锁，现场进入等待状态，等待被唤醒");
+                        synchronized (object) {
+                            object.wait();
+                            log.info(Thread.currentThread().getName() + "==线程被唤醒");
+                            if (zookeeperUtils.tryLock(key)) {
+                                command2(object, key);
+                            }
+
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, "线程1").start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (zookeeperUtils.tryLock(key)) {
+                    command2(object, key);
+                } else {
+                    try {
+                        log.info(Thread.currentThread().getName() + "==未获得锁，现场进入等待状态，等待被唤醒");
+                        synchronized (object) {
+                            object.wait();
+                            log.info(Thread.currentThread().getName() + "==线程被唤醒");
+                            if (zookeeperUtils.tryLock(key)) {
+                                command2(object, key);
+                            }
+
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, "线程2").start();
+
+
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void command2(Object object, final String key) {
+        synchronized (object) {
+            try {
+                log.info(Thread.currentThread().getName() + "==获取到锁");
+                Thread.sleep(1000);
+                log.info(Thread.currentThread().getName() + "==正在执行……");
+                Thread.sleep(1000);
+                log.info(Thread.currentThread().getName() + "==执行完成");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                log.info(Thread.currentThread().getName() + "==释放锁");
+                zookeeperUtils.unLock(key);
+                object.notifyAll();
+            }
+        }
+    }
+
+    @Test
+    public void testZKlOCK() {
+        System.out.println(zookeeperUtils.tryLock("/conf/lock"));
     }
 
 }
