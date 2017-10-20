@@ -235,8 +235,12 @@ public class OrderPayJunit {
     }
 
     @Test
-    public void testZKlOCK() {
-        System.out.println(zookeeperUtils.tryLock("/conf/lock"));
+    public void testZKlOCK() throws Exception {
+//        System.out.println(zookeeperUtils.tryLock("/conf/lock"));
+        zookeeperUtils.getData("/conf/watch",true);
+        System.in.read();
+//        zookeeperUtils.setData("/conf/watch");
+
     }
 
 }
