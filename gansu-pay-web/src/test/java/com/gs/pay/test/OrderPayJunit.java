@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import redis.clients.jedis.Jedis;
@@ -39,6 +40,8 @@ public class OrderPayJunit {
     private RedisUtils redisUtils;
     @Resource
     private ZookeeperUtils zookeeperUtils;
+    @Resource
+    private RedisTemplate redisTemplate;
 
 
     @Test
@@ -237,10 +240,14 @@ public class OrderPayJunit {
     @Test
     public void testZKlOCK() throws Exception {
 //        System.out.println(zookeeperUtils.tryLock("/conf/lock"));
-        zookeeperUtils.getData("/conf/watch",true);
+        zookeeperUtils.getData("/conf/watch", true);
         System.in.read();
 //        zookeeperUtils.setData("/conf/watch");
+    }
 
+    @Test
+    public void testRedisPublish() {
+        redisTemplate.convertAndSend("gansu","我正在发布消息");
     }
 
 }

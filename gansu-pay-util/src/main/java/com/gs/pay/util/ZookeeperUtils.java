@@ -29,9 +29,9 @@ public class ZookeeperUtils {
     private String rootPath;
 
     public ZookeeperUtils() {
-
     }
 
+    @PostConstruct
     public ZooKeeper getAliveZk() {
         ZooKeeper aliveZk = zk;
         if (aliveZk != null && aliveZk.getState().isAlive()) {
@@ -70,7 +70,12 @@ public class ZookeeperUtils {
     public synchronized void connect() {
         if (zk == null && StringUtils.isNotBlank(servers)) {
             try {
-                zk = new ZooKeeper(servers, sessionTimeout, null);
+                zk = new ZooKeeper(servers, sessionTimeout, new Watcher() {
+                    @Override
+                    public void process(WatchedEvent event) {
+                        watchData();
+                    }
+                });
             } catch (IOException e) {
                 log.error("==建立连接异常IOException", e);
             }
@@ -202,12 +207,13 @@ public class ZookeeperUtils {
 
     /**
      * 修改值
+     *
      * @param watchPath
      */
     public void setData(String watchPath) {
         try {
             Stat stat = getAliveZk().setData(watchPath, "我们都是好孩子".getBytes(), -1);
-            log.info("stat->{}",stat.toString());
+            log.info("stat->{}", stat.toString());
 
         } catch (KeeperException e) {
             e.printStackTrace();
@@ -216,22 +222,18 @@ public class ZookeeperUtils {
         }
     }
 
-    @PostConstruct
     public void watchData() {
-        String watchPath ="/conf/watch";
+        String watchPath = "/conf/watch";
         try {
-            while (true) {
-                byte[] data = getAliveZk().getData(watchPath, new Watcher() {
-                    @Override
-                    public void process(WatchedEvent event) {
-                        log.info("监控路径->{}"+event.getPath());
-                        log.info("" + event.getState());
-                        log.info("==数据变化，刷新内存");
+            byte[] data = getAliveZk().getData(watchPath, new Watcher() {
+                @Override
+                public void process(WatchedEvent event) {
+                    log.info("监控路径->{}" + event.getPath());
+                    log.info("" + event.getState());
+                    log.info("==数据变化，刷新内存");
 
-                    }
-                }, null);
-                Thread.sleep(5000);
-            }
+                }
+            }, null);
         } catch (KeeperException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

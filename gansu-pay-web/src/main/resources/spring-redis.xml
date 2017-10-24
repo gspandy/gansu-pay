@@ -38,7 +38,7 @@
     </bean>
 
     <!--序列化方式-->
-    <bean id="jdkSerializationRedisSerializer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+    <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer" />
 
 
     <!--redis Tempate-->
@@ -49,10 +49,10 @@
     <bean id="redisChannelListener" class="com.gs.pay.listener.RedisChannelListener" />
 
     <redis:listener-container connection-factory="jedisConnectionFactory">
-        <redis:listener ref="redisChannelListener" method="resetMemory" serializer="jdkSerializationRedisSerializer" topic="gansu" />
+        <redis:listener ref="redisChannelListener" method="resetMemory" serializer="stringRedisSerializer" topic="gansu" />
     </redis:listener-container>
 
-    <bean id="messageListenerAdapter" class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter">
+    <!--<bean id="messageListenerAdapter" class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter">
         <property name="delegate" ref="redisChannelListener" />
         <property name="serializer" ref="jdkSerializationRedisSerializer" />
     </bean>
@@ -68,7 +68,7 @@
                 </entry>
             </map>
         </property>
-    </bean>
+    </bean>-->
 
 
 </beans>
