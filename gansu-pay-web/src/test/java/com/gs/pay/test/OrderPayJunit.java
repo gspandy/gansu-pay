@@ -6,6 +6,7 @@ import com.gs.pay.service.api.WeChatPayApi;
 import com.gs.pay.util.RedisUtils;
 import com.gs.pay.util.UUIDSnowFlake;
 import com.gs.pay.util.ZookeeperUtils;
+import com.gs.pay.zkwatch.ZookeeperWatch;
 import org.apache.zookeeper.CreateMode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +43,8 @@ public class OrderPayJunit {
     private ZookeeperUtils zookeeperUtils;
     @Resource
     private RedisTemplate redisTemplate;
-
+    @Resource
+    private ZookeeperWatch zookeeperWatch;
 
     @Test
     public void testRedis() {
@@ -249,5 +251,12 @@ public class OrderPayJunit {
     public void testRedisPublish() {
         redisTemplate.convertAndSend("gansu","我正在发布消息");
     }
+
+    @Test
+    public void testwatch() throws Exception {
+//        zookeeperWatch.watchNode("/lock/watch");
+        System.in.read();
+    }
+
 
 }

@@ -27,7 +27,7 @@ public class Main {
 //       String url = "http://10.100.142.18:8092/yao-web/activity/customerOffline/localeSignUp.do?inviteCode=1600006&activitySerial=20";
        String url = "http://10.100.142.18:8092/yao-web/activity/customerOffline/localeSignUp.do?activitySerial=20&inviteCode=1600006&activitySel=20";
 
-        System.out.println(url.split("activitySerial=")[1].split("&")[0]);
+        System.out.println(url.indexOf("activitySerial=20")!=-1);
 
     }
 }

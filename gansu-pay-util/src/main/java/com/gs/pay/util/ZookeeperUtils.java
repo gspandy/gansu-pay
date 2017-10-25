@@ -73,7 +73,7 @@ public class ZookeeperUtils {
                 zk = new ZooKeeper(servers, sessionTimeout, new Watcher() {
                     @Override
                     public void process(WatchedEvent event) {
-                        watchData();
+//                        watchData();
                     }
                 });
             } catch (IOException e) {

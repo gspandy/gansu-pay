@@ -11,5 +11,9 @@
         <property name="rootPath" value="/conf/gansu" />
     </bean>
 
+    <bean id="zookeeperWatch" class="com.gs.pay.zkwatch.ZookeeperWatch" >
+        <property name="servers" value="${zookeeper.address}" />
+    </bean>
+
 
 </beans>
