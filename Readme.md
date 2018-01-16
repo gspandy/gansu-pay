@@ -14,10 +14,10 @@ gan-pay-api--依赖-->gansu-pay-model
 gan-pay-dao--依赖-->gansu-pay-model 
 ```
 ##3.项目集成功能
-####3.1 mysql数据库
-####3.2 redis缓存分布式锁
-####3.3 dubbo RPC远程服务框架
-####3.4 schedual定时任务
+#### &nbsp;&nbsp;&nbsp;&nbsp;3.1 mysql数据库
+#### &nbsp;&nbsp;&nbsp;&nbsp;3.2 redis缓存分布式锁
+#### &nbsp;&nbsp;&nbsp;&nbsp;3.3 dubbo RPC远程服务框架
+#### &nbsp;&nbsp;&nbsp;&nbsp;3.4 schedual定时任务
 
 ##4.docker创建mysql、redis容器
 ```markdown
@@ -26,7 +26,7 @@ alias mysql-gansu='docker run -d --name=gansu-mysql -p 3306:3306 -e MYSQL_ROOT_P
 
 ```
 
-##4.telnet命令调试dubbo
+##5.telnet命令调试dubbo
 ```markdown
 //ls
 列出dubbo服务
@@ -34,4 +34,12 @@ alias mysql-gansu='docker run -d --name=gansu-mysql -p 3306:3306 -e MYSQL_ROOT_P
 列出当前服务下的方法
 //invoke xxx服务.xxx方法("参数")
 方法调用
+```
+##6 netty4框架接入
+```
+<dependency>
+    <groupId>io.netty</groupId>
+    <artifactId>netty-all</artifactId>
+    <version>4.1.19.Final</version>
+</dependency>
 ```
